@@ -55,6 +55,22 @@ class MainScreen(Screen):
         """
         print("Callback from MainScreen.pressed()")
 
+    def toggleMotor(self):
+        if self.ids.mtr.text == 'motor off':
+            self.ids.mtr.text = 'motor on'
+        else:
+            self.ids.mtr.text = 'motor off'
+
+    def toggle(self):
+        if self.ids.btn.text == 'on':
+            self.ids.btn.text = 'off'
+        else:
+            self.ids.btn.text = 'on'
+
+    def count(self):
+        self.ids.cnt.i+=1
+        self.ids.cnt.text = str(self.ids.cnt.i)
+
     def admin_action(self):
         """
         Hidden admin button touch event. Transitions to passCodeScreen.
