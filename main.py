@@ -7,6 +7,7 @@ from kivy.app import App
 from kivy.core.window import Window
 from kivy.lang import Builder
 from kivy.uix.screenmanager import ScreenManager, Screen
+from kivy.animation import Animation
 
 from pidev.MixPanel import MixPanel
 from pidev.kivy.PassCodeScreen import PassCodeScreen
@@ -47,6 +48,12 @@ class MainScreen(Screen):
     """
     Class to handle the main screen and its associated touch events
     """
+    anim = Animation(size=(400, 300), duration=3) + Animation(size=(200, 150), duration=3)
+    anim.repeat = True
+
+    def __init__(self, **kw):
+        super().__init__(**kw)
+        self.anim.start(self.ids.img)
 
     def image(self):
         SCREEN_MANAGER.current = 'button'
@@ -84,6 +91,11 @@ class MainScreen(Screen):
 
 
 class ButtonScreen(Screen):
+    anim = Animation(size=(400, 300), duration=3) + Animation(size=(200, 150), duration=3)
+    anim.repeat = True
+    def __init__(self, **kw):
+        super().__init__(**kw)
+        self.anim.start(self.ids.img)
     def image(self):
         SCREEN_MANAGER.current = 'main'
 

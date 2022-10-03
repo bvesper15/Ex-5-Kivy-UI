@@ -22,6 +22,7 @@
         center_y: root.height * 0.75
 
     Button:
+        id: img
         size_hint: None, None
         text: 'press me'
         on_press: root.image()
@@ -99,8 +100,11 @@
 <ButtonScreen>:
     name: 'button'
     Button:
+        id: img
         size_hint: None, None
         text: 'press me'
         on_press: root.image()
         size: 200, 150
         background_normal: 'dino.jpeg'
+        x: root.width * 0.5
+        y: root.height * 0.5
