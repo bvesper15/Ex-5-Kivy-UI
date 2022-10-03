@@ -1,7 +1,7 @@
 import os
 
-#os.environ['DISPLAY'] = ":0.0"
-#os.environ['KIVY_WINDOW'] = 'egl_rpi'
+# os.environ['DISPLAY'] = ":0.0"
+# os.environ['KIVY_WINDOW'] = 'egl_rpi'
 
 from kivy.app import App
 from kivy.core.window import Window
@@ -48,6 +48,9 @@ class MainScreen(Screen):
     Class to handle the main screen and its associated touch events
     """
 
+    def image(self):
+        SCREEN_MANAGER.current = 'button'
+
     def pressed(self):
         """
         Function called on button touch event for button with id: testButton
@@ -68,7 +71,7 @@ class MainScreen(Screen):
             self.ids.btn.text = 'on'
 
     def count(self):
-        self.ids.cnt.i+=1
+        self.ids.cnt.i += 1
         self.ids.cnt.text = str(self.ids.cnt.i)
 
     def admin_action(self):
@@ -78,6 +81,11 @@ class MainScreen(Screen):
         :return: None
         """
         SCREEN_MANAGER.current = 'passCode'
+
+
+class ButtonScreen(Screen):
+    def image(self):
+        SCREEN_MANAGER.current = 'main'
 
 
 class AdminScreen(Screen):
@@ -93,8 +101,10 @@ class AdminScreen(Screen):
         """
         Builder.load_file('AdminScreen.kv')
 
-        PassCodeScreen.set_admin_events_screen(ADMIN_SCREEN_NAME)  # Specify screen name to transition to after correct password
-        PassCodeScreen.set_transition_back_screen(MAIN_SCREEN_NAME)  # set screen name to transition to if "Back to Game is pressed"
+        PassCodeScreen.set_admin_events_screen(
+            ADMIN_SCREEN_NAME)  # Specify screen name to transition to after correct password
+        PassCodeScreen.set_transition_back_screen(
+            MAIN_SCREEN_NAME)  # set screen name to transition to if "Back to Game is pressed"
 
         super(AdminScreen, self).__init__(**kwargs)
 
@@ -132,6 +142,7 @@ SCREEN_MANAGER.add_widget(MainScreen(name=MAIN_SCREEN_NAME))
 SCREEN_MANAGER.add_widget(PassCodeScreen(name='passCode'))
 SCREEN_MANAGER.add_widget(PauseScreen(name='pauseScene'))
 SCREEN_MANAGER.add_widget(AdminScreen(name=ADMIN_SCREEN_NAME))
+SCREEN_MANAGER.add_widget(ButtonScreen(name='button'))
 
 """
 MixPanel

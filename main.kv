@@ -5,6 +5,30 @@
     FloatLayout:
         size_hint: None, None
 
+    Slider:
+        id: slider
+        min: 0
+        max: 100
+        step: 1
+        orientation: 'vertical'
+        color: 1,0,0,1
+
+    Label:
+        text: str(slider.value)
+        font_size: 40
+        color: 0,0,1,1
+        size: 100, 100
+        center_x: root.width * 0.25
+        center_y: root.height * 0.75
+
+    Button:
+        size_hint: None, None
+        text: 'press me'
+        on_press: root.image()
+        size: 200, 150
+        background_normal: 'dino.jpeg'
+
+
     Label:
         id: mtr
         text: 'motor off'
@@ -71,3 +95,12 @@
         bold: True
         outline_width: self.font_size * 0.1
         outline_color: 0, 0, 0
+
+<ButtonScreen>:
+    name: 'button'
+    Button:
+        size_hint: None, None
+        text: 'press me'
+        on_press: root.image()
+        size: 200, 150
+        background_normal: 'dino.jpeg'
