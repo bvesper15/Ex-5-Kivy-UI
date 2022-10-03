@@ -8,7 +8,9 @@ from kivy.core.window import Window
 from kivy.lang import Builder
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.animation import Animation
+from kivy.clock import Clock
 
+from pidev.Joystick import Joystick
 from pidev.MixPanel import MixPanel
 from pidev.kivy.PassCodeScreen import PassCodeScreen
 from pidev.kivy.PauseScreen import PauseScreen
@@ -27,6 +29,7 @@ SCREEN_MANAGER = ScreenManager()
 MAIN_SCREEN_NAME = 'main'
 ADMIN_SCREEN_NAME = 'admin'
 
+joy = Joystick(0, False)
 
 class ProjectNameGUI(App):
     """
@@ -48,11 +51,22 @@ class MainScreen(Screen):
     """
     Class to handle the main screen and its associated touch events
     """
+    joyx = joy.get_axis('x')
+    joyy = joy.get_axis('y')
+
     anim = Animation(size=(400, 300), duration=3) + Animation(size=(200, 150), duration=3)
     anim.repeat = True
 
+    def updateJoy(self, dt):
+        joyx = joy.get_axis('x')
+        joyy = joy.get_axis('y')
+        self.ids.joy.x = joyx * self.width
+        self.ids.joy.y = joyy * self.height
+
+
     def __init__(self, **kw):
         super().__init__(**kw)
+        Clock.schedule_interval(self.updateJoy, 0.01)
         self.anim.start(self.ids.img)
 
     def image(self):
@@ -78,6 +92,7 @@ class MainScreen(Screen):
             self.ids.btn.text = 'on'
 
     def count(self):
+        print(joy.get_axis('x'), joy.get_axis('y'))
         self.ids.cnt.i += 1
         self.ids.cnt.text = str(self.ids.cnt.i)
 

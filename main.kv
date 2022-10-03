@@ -39,6 +39,14 @@
         center_x: root.width * 0.75
         center_y: root.height * 0.75
 
+    Label:
+        id: joy
+        font_size: 40
+        color: 0,0,1,1
+        size: 100, 100
+        x: 0
+        y: 0
+        text: 'x: '+str(round(self.x))+' y: '+str(round(self.y))
 
     DPEAButton:
         id: test_button
